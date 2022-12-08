@@ -24,12 +24,12 @@ namespace DeliciousMap.Managers
             string connStr = ConfigHelper.GetConnectionString();
             string commandText =
                 $@"  SELECT TOP {pageSize} *
-                     FROM [FoodContents]
+                     FROM [MapContents]
                      WHERE 
                         IsEnable = 'true' AND
                         ID NOT IN (
                             SELECT TOP {skip} ID
-                            FROM [FoodContents]
+                            FROM [MapContents]
                             WHERE  IsEnable = 'true' 
                                    {whereCondition}
                             ORDER BY CreateDate DESC
@@ -38,7 +38,7 @@ namespace DeliciousMap.Managers
                      ORDER BY CreateDate DESC ";
             string commandCountText =
                                  $@"SELECT COUNT (ID)
-                                     FROM [FoodContents]
+                                     FROM [MapContents]
                                   WHERE 
                                      IsEnable = 'true'
                                      {whereCondition}";
@@ -92,7 +92,7 @@ namespace DeliciousMap.Managers
             string connStr = ConfigHelper.GetConnectionString();
             string commandText =
                 $@" SELECT *
-                    FROM FoodContents 
+                    FROM MapContents 
                     {whereCondition}
                     ORDER BY CreateDate DESC ";
             try
@@ -143,7 +143,7 @@ namespace DeliciousMap.Managers
             string connStr = ConfigHelper.GetConnectionString();
             string commandText =
                 $@" SELECT *
-                    FROM FoodContents 
+                    FROM MapContents 
                     WHERE ID IN ({whereCondition}) ";
             try
             {
@@ -207,7 +207,7 @@ namespace DeliciousMap.Managers
             string connStr = ConfigHelper.GetConnectionString();
             string commandText =
                 $@" SELECT *
-                    FROM FoodContents 
+                    FROM MapContents 
                     WHERE ID = @id ";
             try
             {
@@ -240,7 +240,7 @@ namespace DeliciousMap.Managers
         public void CreateMapContent(MapContentModels Model, Guid UserID)
         {
             string connStr = ConfigHelper.GetConnectionString();
-            string commandText = @"INSERT INTO [FoodContents]
+            string commandText = @"INSERT INTO [MapContents]
                                    (ID, Title, Body, Longitude, Latitude, CoverImage, IsEnable, CreateDate, CreateUser)
                                   VALUES
                                    (@ID, @Title, @Body, @Longitude, @Latitude ,@CoverImage, @IsEnable, @CreateDate, @CreateUser)";
@@ -289,7 +289,7 @@ namespace DeliciousMap.Managers
             string whereCondition = string.Join(",", idTextList);
 
             string connStr = ConfigHelper.GetConnectionString();
-            string commandText = $@"DELETE [FoodContents]
+            string commandText = $@"DELETE [MapContents]
                                    WHERE
                                        ID IN ({whereCondition});";
             try

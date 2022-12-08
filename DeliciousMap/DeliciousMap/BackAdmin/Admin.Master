@@ -11,18 +11,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <table width="100%">
+        <table width="90%" style="margin-left: 30px;">
             <tr>
                 <td colspan="2">
-                    <img src="../75470.png" width="50"/>
+                    <br />
+                    <img src="../icon.jpg" width="80"/>
                 </td>
             </tr>
             <tr>
                 <td width="300px">
-                     <a href="MapList.aspx">美食地圖管理</a><br />
-                     <a href="MemberList.aspx">會員管理</a><br />
+                    <br />
+                    <a href="MapList.aspx">美食地圖管理</a>
+                    <br /><br />
+                    <a href="MemberList.aspx">會員管理</a>
+                    <br />
                 </td>
-                <td>內容區
+                <td>
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </td>

@@ -8,7 +8,7 @@ namespace DeliciousMap.Helpers
 {
     public class Logger
     {
-        private const string _savePath = "C:\\Users\\YUKI\\Desktop\\Csharp\\練習!\\02月\\02.24\\DeliciousMap\\Log.txt";
+        private const string _savePath = "D:\\ccc\\Logs\\log.log";
         public static void WriteLog(string modelName,Exception ex)
         {
             string content =

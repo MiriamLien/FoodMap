@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    登入的帳號:
-    <asp:Literal ID="ltlAccount" runat="server" />
+    登入的帳號：
+    <asp:Literal ID="ltlAccount" runat="server" />&emsp;
     <asp:Button ID="btnLogout" runat="server" Text="登出" OnClick="btnLogout_Click" />
 </asp:Content>

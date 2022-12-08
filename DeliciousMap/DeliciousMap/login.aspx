@@ -8,21 +8,27 @@
     <title>美食地圖-登入</title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" align="center">
         <h1 align="center">會員登入</h1>
-        <asp:PlaceHolder ID="plLogin" runat="server">Account:
+        <asp:PlaceHolder ID="plLogin" runat="server">
+            Account: &nbsp;
             <asp:TextBox ID="txtAccount" runat="server" /><br />
             <br />
             Password:
             <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" /><br />
+            <br />           
             <asp:Button ID="btnLogin" runat="server" Text="登入" OnClick="btnLogin_Click" /><br />
-            測試帳號登入:<asp:CheckBox ID="ckpskip" runat="server" />
+            <br />            
+            測試帳號登入: <asp:CheckBox ID="ckpskip" runat="server" />
             <asp:Literal ID="ltlMeg" runat="server"></asp:Literal>
             <asp:Literal ID="ltlMessage" runat="server" />
         </asp:PlaceHolder>
         <br />
-        <asp:PlaceHolder ID="plUserInfo" runat="server">登入會員:
-            <asp:Literal ID="ltlAccount" runat="server" /><br />
+        <asp:PlaceHolder ID="plUserInfo" runat="server">
+            登入會員：
+            <asp:Literal ID="ltlAccount" runat="server" />
+            <br />
+            <br />
             請前往<a href="/Backadmin/Index.aspx">後台</a>
         </asp:PlaceHolder>
     </form>
