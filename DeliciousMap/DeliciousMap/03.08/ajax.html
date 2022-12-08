@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax1 Practice</title>
+    <script src="\js\jquery.min.js"></script>
+    <script>
+        console.log("執行");
+        // document.getElementById("title1").innerHTML = "測試標題";
+
+        window.onload = function () {
+            console.log("執行!");
+            document.getElementById("title1").innerHTML = "網頁載入完成";
+        };
+
+        $(document).ready(function () {
+            document.getElementById("title1").innerHTML = "Ready.....";
+            console.log("執行!!!");
+        });
+
+        $(document).ready(funcx);
+        function funcx() {
+            document.getElementById("title1").innerHTML = "Ready.....";
+            console.log("執行!!");
+        }
+        function getData() {
+            console.log("取得資料");
+            $.ajax({
+                url: "http://opendata2.epa.gov.tw/UV/UV.json",
+                dataType: "json",
+                success: function (jsonObj) {
+                    // 成功。JSON物件處理作業
+                    // （省略）
+                    console.log(jsonObj[0]);
+                    var i;
+                    var str = " ";
+                    for (i = 0; i < jsonObj.length; i++) {
+                        // str = str + "<li>";
+                        // str = str + jsonObj[i].SiteName;
+                        // str = str + "</li>\n";
+
+                        str += "<li>" + jsonObj[i].SiteName + "  紫外線係數為:  " + jsonObj[i].UVI + "</li>\n";
+                    }
+                    console.log(str);
+                    $("#uvList").html(str);
+                    $("#uvList").slideUp(2000);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // 錯誤。錯誤訊息處理
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="title1">Ajax</h1>
+    <button onclick="getData()">取得資料</button> <!-- 按鈕 -->
+    <ol id="uvList">
+        <l1></l1>
+        <l1></l1>
+        <l1></l1>
+        <l1></l1>
+    </ol>
+    <!-- <table border="1" id="uvtable">
+      
+    </table> -->
+</body>
+
+</html>

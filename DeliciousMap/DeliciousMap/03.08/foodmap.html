@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="js/jquery.min.js"></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        let map;
+        var marker2;
+
+        function initMap() {
+            var myLatLng = { lat: 22.994514, lng: 120.197693 };
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: myLatLng,
+                zoom: 16,
+            });
+        }
+
+        function gohome() {
+            map.setCenter({
+                lat: 22.989802, lng: 120.197016
+            }
+            );
+        }
+
+        function movePos() {
+            marker.setPosition({
+                lat: 22.98749, lng: 120.162359
+            });
+        }
+
+        var markerArr = [];
+        var infoArr = [];
+        function getData() {
+            console.log("取得資料");
+            $.ajax({
+                url: "/API/FoodAPIHandler.ashx",
+                dataType: "json",
+                success: function (jsonObj) {
+                    // 成功。JSON物件處理作業
+                    // （省略）
+                    console.log(jsonObj);
+                    var i;
+                    var str = " ";
+
+                    var marker;
+                    for (i = 0; i < jsonObj.length; i++) {
+                        str += "<li>[" + jsonObj[i].Title + "] <br>" + jsonObj[i].Content + "</li>\n";
+
+                        marker = new google.maps.Marker({
+                            position: {
+                                lat: parseFloat(jsonObj[i].Latitude),
+                                lng: parseFloat(jsonObj[i].Longitude)
+                            },
+                            map,
+                            title: jsonObj[i].Title,
+                            icon: "gift.png"
+                        });
+
+                        var contentString = "<h4>" + jsonObj[i].Title + "</h4>" + jsonObj[i].Latitude + "," + jsonObj[i].Longitude + "<p>" + jsonObj[i].Content + "</p>";
+                        const infowindow = new google.maps.InfoWindow({
+                            content: contentString,
+                        });
+
+                        //marker.idx = i;
+                        marker.addListener("click", function () {
+                            infowindow.open({ anchor: this, map, shouldFocus: true, });
+                        });
+                        // =>指到此marker.idx，若放i則會隨著迴圈i不斷變動
+                        //anchor: this, =>指到這個marker，不需要再加一個marker.idx屬性
+                        markerArr.push(marker);
+                    }
+                    console.log(str);
+                    console.log(markerArr);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    // 錯誤。錯誤訊息處理
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }
+        window.onload = function () {
+            getData();
+        };
+
+        if (navigator.geolocation) {
+            // 支援GPS地理定位
+            navigator.geolocation.getCurrentPosition(geoYes, geoNo);
+            // 或者是使用 navigator.geolocation.getCurrentPosition(geoYes,geoNo);
+        }
+        function geoYes(evt) {
+            var str = "緯度：" + evt.coords.latitude + ", 經度：" + evt.coords.longitude;
+            document.getElementById("pos").innerText = str; //將取得資訊顯示在畫面元素上
+            //console.log(str);
+            map.setCenter({
+                    lat:evt.coords.latitude,
+                    lng:evt.coords.longitude
+                });
+        }
+        function geoNo(evt) {
+            alert("GPS定位錯誤!!");
+        }
+    </script>
+</head>
+
+<body>
+    <h1 align="center">Yukiの美食地圖</h1>
+    <button onclick="gohome();">搭貓車</button>
+    <button onclick="movePos();">中心</button>
+    <button onclick="getData();">取得資料</button>
+    <p id="pos"></p>
+    <div id="map"></div>
+    
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA9A_Ry9G67EMNHQHYwh3aAE9ubAkaLdU
+  &callback=initMap&v=weekly" async></script>
+</body>
+
+</html>
